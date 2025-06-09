@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+#define speedBoost ios::sync_with_stdio(0); cin.tie(0);
+using namespace std;
+
+typedef unsigned long long ull;
+
+ull solve(int n, int k){
+  if(k > n - k) k = n - k;
+  ull ans = 1;
+  for(int i=0; i<k; i++)
+    ans = ans * (n - i) / (i + 1);
+  return ans;
+}
+
+int main(){
+
+  speedBoost;
+  int n, m;
+
+  while((cin >> n >> m), (n || m)){
+
+    ull ans = solve(n, m);
+    cout << n << " things taken " << m << " at a time is " << ans << " exactly.\n";
+  }
+
+  return 0;
+}
