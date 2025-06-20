@@ -3,18 +3,22 @@
 using namespace std;
 
 const int INF = 1e9;
-typedef pair<int, int> ii;
 typedef vector<int> vi;
+typedef pair<int, int> ii;
 typedef vector<ii> vii;
 typedef tuple<int, int, int> tup;
-vector<vii> AL, AL_rev;
-vector<tup> edges;
 
-void dijkstra(int start, int p, vi &dist){
+vector<vii> AL;
+vector<tup> edges;
+vi dist_start, dist_end;
+
+void dijkstra(int op, int p){
+  vi &dist =  (op == 0) ? dist_start : dist_end;
+  int start = (op == 0) ? 0 : p-1;
   set<ii> pq;
   dist[start] = 0;
   for(int u=0; u<p; u++)
-    pq.insert({dist[u], u});
+  pq.insert({dist[u], u});
 
   while(!pq.empty()){
     auto [d, u] = *pq.begin();
@@ -31,34 +35,30 @@ void dijkstra(int start, int p, vi &dist){
 int main(){
 
   speedBoost;
-  int p, t;
-  while(cin >> p >> t){
+  int p, t; cin >> p >> t;
 
-    AL.assign(p, vii());
-    AL_rev.assign(p, vii());
-    edges.clear();
-
-    for(int i=0; i<t; i++){
-      int u, v, w;
-      cin >> u >> v >> w;
-      AL[u].emplace_back(v, w);
-      AL[v].emplace_back(u, w);
-      edges.push_back({u, v, w});
-    }
-
-    vi dist_start(p, INF), dist_end(p, INF);
-    dijkstra(0, p, dist_start);
-    dijkstra(p-1, p, dist_end);
-
-    int ans = 0;
-    for(auto [u, v, w] : edges){
-      if(dist_start[u] + w + dist_end[v] == dist_start[p-1] ||
-         dist_start[v] + w + dist_end[u] == dist_start[p-1])
-           ans += 2 * w;
-    }
-
-    cout << ans << "\n";
+  edges.clear();
+  AL.assign(p, vii());
+  dist_start.assign(p, INF), dist_end.assign(p, INF);
+  for(int i=0; i<t; i++){
+    int u, v, w;
+    cin >> u >> v >> w;
+    AL[u].emplace_back(v, w);
+    AL[v].emplace_back(u, w);
+    edges.push_back({u, v, w});
   }
+
+  dijkstra(0, p);
+  dijkstra(1, p);
+
+  int ans = 0;
+  for(auto [u, v, w] : edges){
+    if(dist_start[u] + w + dist_end[v] == dist_start[p-1] ||
+      (dist_start[v] + w + dist_end[u] == dist_start[p-1]))
+        ans += 2 * w;
+  }
+
+  cout << ans << "\n";
 
   return 0;
 }
