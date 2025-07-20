@@ -29,8 +29,6 @@ int main(){
       cin >> vec[i];
 
     ll l = 1, r = 1e9, mid;
-    mid = (l+r)/2;
-
     while(r > l){
       mid = (l+r)/2;
       if(check(mid, vec)) r = mid;
