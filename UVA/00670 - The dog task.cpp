@@ -44,7 +44,8 @@ void solve(){
     double bob_dist = euclid_dist(bob_route[i], bob_route[i+1]);
     for(int j=0; j<m; j++){
       double ralph_dist = euclid_dist(bob_route[i], int_route[j]) +
-                          euclid_dist(int_route[j], bob_route[i+1]);      if(ralph_dist <= 2 * bob_dist)
+                          euclid_dist(int_route[j], bob_route[i+1]);      
+      if(ralph_dist <= 2 * bob_dist)
         AL[i].push_back(j);
     }
   }
