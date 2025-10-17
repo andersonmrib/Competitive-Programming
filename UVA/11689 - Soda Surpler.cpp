@@ -20,8 +20,7 @@ int main(){
       sodas += new_sodas;
       int remaining = total_empty % c;
 
-      int bottles_from_new_soda = new_sodas;
-      total_empty = bottles_from_new_soda + remaining;
+      total_empty = new_sodas + remaining;
     }
 
     cout << sodas << endl;
@@ -29,3 +28,4 @@ int main(){
 
   return 0;
 }
+
