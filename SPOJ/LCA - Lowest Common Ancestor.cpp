@@ -11,7 +11,7 @@ struct LCA{
   vector<bool> visited;
   int n;
 
-  LCA(vector<vi> &AL, int root = 0){
+  LCA(vector<vi> &AL, int root){
     n = AL.size();
     euler.reserve(2 * n);
     height.resize(n);
@@ -93,7 +93,7 @@ int main(){
       }
     }
 
-    LCA useThis(AL);
+    LCA useThis(AL, root);
 
     cout << "Case " << NC++ << ":\n";
     int q; cin >> q;
